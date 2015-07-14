@@ -41,7 +41,7 @@ PKGIGNORE=(
     pcmciautils
     reiserfsprogs
     s-nail
-    systemd-sysvcompat
+    #systemd-sysvcompat
     usbutils
     xfsprogs
 )
@@ -120,6 +120,9 @@ echo "Testing filesystem..."
 cat $UNTEST | docker import - archtest
 docker run -t --rm archtest echo Success.
 docker rmi archtest
+
+echo "Creating local codekoala/arch"
+cat $UNTEST | docker import - codekoala/arch
 
 echo "Approving filesystem..."
 mv $UNTEST arch-rootfs-${DATE}.tar.xz
