@@ -74,6 +74,7 @@ arch-chroot $ROOTFS /bin/sh -c "pacman-key -r ${INSTARCH_KEY} && pacman-key --ls
 echo -e "[instarch]\nServer = http://instarch.codekoala.com/\$arch/" >> $ROOTFS/etc/pacman.conf
 
 arch-chroot $ROOTFS /bin/sh -c "ln -sf /usr/share/zoneinfo/UTC /etc/localtime"
+echo 'LANG=en_US.UTF-8' > $ROOTFS/etc/locale.conf
 echo 'en_US.UTF-8 UTF-8' > $ROOTFS/etc/locale.gen
 arch-chroot $ROOTFS locale-gen
 arch-chroot $ROOTFS /bin/sh -c 'echo "Server = https://mirrors.kernel.org/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist'
