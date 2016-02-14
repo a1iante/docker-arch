@@ -15,4 +15,4 @@ sed "s/TAG/${DATE}/" Dockerfile.tpl > Dockerfile
 
 # commit the changes
 git add Dockerfile && git commit -m "Update Dockerfile (${DATE})"
-git add arch-rootfs-${DATE}.tar.xz && git commit -m "Update rootfs (${DATE})"
+git add arch-rootfs-${DATE}.tar && git commit -m "Update rootfs (${DATE})"
