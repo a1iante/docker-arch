@@ -114,16 +114,16 @@ ln -sf $SYSD/systemd-journald.service $SYSD/sysinit.target.wants/
 
 echo "Compressing filesystem..."
 UNTEST=arch-rootfs-untested.tar.xz
-tar --xz -f $UNTEST --numeric-owner --xattrs --acls -C $ROOTFS -c .
+tar -f - --numeric-owner --xattrs --acls -C $ROOTFS -c . | xz -c -z - --threads=0 > $UNTEST
 rm -rf $ROOTFS
 
 echo "Testing filesystem..."
-cat $UNTEST | docker import - archtest
+xzcat $UNTEST | docker import - archtest
 docker run -t --rm archtest echo Success.
 docker rmi archtest
 
 echo "Creating local codekoala/arch"
-cat $UNTEST | docker import - codekoala/arch
+xzcat $UNTEST | docker import - codekoala/arch
 
 echo "Approving filesystem..."
 mv $UNTEST arch-rootfs-${DATE}.tar.xz
