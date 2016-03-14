@@ -113,25 +113,17 @@ ln -sf $SYSD/systemd-journald.socket $SYSD/sockets.target.wants/
 ln -sf $SYSD/systemd-journald.service $SYSD/sysinit.target.wants/
 
 echo "Compressing filesystem..."
-#UNTEST=arch-rootfs-untested.tar.xz
-#tar -f - --numeric-owner --xattrs --acls -C $ROOTFS -c . | xz -c -z - --threads=0 > $UNTEST
-UNTEST=arch-rootfs-untested.tar.gz
-tar -f ${UNTEST} --numeric-owner --xattrs --acls -C $ROOTFS -c .
-
-#echo "Tarballing filesystem..."
-#UNTEST=arch-rootfs-untested.tar
-#tar -f ${UNTEST} --numeric-owner --xattrs --acls -C $ROOTFS -c .
+UNTEST=arch-rootfs-untested.tar.xz
+tar -f - --numeric-owner --xattrs --acls -C $ROOTFS -c . | xz -c -z - --threads=0 > $UNTEST
 rm -rf $ROOTFS
 
 echo "Testing filesystem..."
-#xzcat $UNTEST | docker import - archtest
-docker import ${UNTEST} archtest
+xzcat $UNTEST | docker import - archtest
 docker run -t --rm archtest echo Success.
 docker rmi archtest
 
 echo "Creating local codekoala/arch"
-#xzcat $UNTEST | docker import - codekoala/arch
-docker import ${UNTEST} codekoala/arch
+xzcat $UNTEST | docker import - codekoala/arch
 
 echo "Approving filesystem..."
-mv $UNTEST arch-rootfs-${DATE}.tar.gz
+mv $UNTEST arch-rootfs-${DATE}.tar.xz

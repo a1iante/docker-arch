@@ -2,7 +2,7 @@ FROM scratch
 MAINTAINER Josh VanderLinden <codekoala@gmail.com>
 
 ENV container docker
-ADD arch-rootfs-2016.03.14.tar.gz /
+ADD arch-rootfs-2016.03.14.tar.xz /
 
 CMD ["/bin/bash"]
 
